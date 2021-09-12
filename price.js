@@ -1,9 +1,9 @@
-function index(price) {
+function index(product) {
   const {
     "product-type": productType,
     "options": options,
     "base-price": basePrice
-  } = price;
+  } = product;
 
   let newTerms = [`product-type:${productType}`];
 
@@ -14,6 +14,22 @@ function index(price) {
   return Object.fromEntries(newTerms.map(term => [term, basePrice]));
 }
 
+function find(product) {
+  const {
+    "product-type": productType,
+    "options": options
+  } = product;
+
+  let newTerm = `product-type:${productType}`;
+
+  for (const [property, value] of Object.entries(options).sort()) {
+    newTerm = `${newTerm},${property}:${value}`;
+  }
+
+  return newTerm;
+}
+
 export {
-  index
+  index,
+  find
 }

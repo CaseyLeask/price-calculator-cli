@@ -1,6 +1,6 @@
 import assert from 'assert'
 
-import { index } from '../price.js'
+import { index, find } from '../price.js'
 
 describe('Index price', function() {
   describe('without any options', function() {
@@ -95,6 +95,74 @@ describe('Index price', function() {
         'product-type:hoodie,colour:white,size:large': 3848
       };
       const actual = index(price);
+
+      assert.deepEqual(actual, expected);
+    });
+
+  });
+});
+
+describe('Find price', function() {
+  describe('without any options', function() {
+    const price = {
+      "product-type": "leggings",
+      "options": {}
+    };
+
+    it('should index name under product-type', function() {
+      const expected = 'product-type:leggings';
+      const actual = find(price);
+
+      assert.deepEqual(actual, expected);
+    });
+  });
+
+  describe('with one option and one value', function() {
+    const price = {
+      "product-type": "sticker",
+      "options": {
+        "size": "xl"
+      }
+    };
+
+    it('should index name under product-type and options', function() {
+      const expected = 'product-type:sticker,size:xl';
+      const actual = find(price);
+
+      assert.deepEqual(actual, expected);
+    });
+  });
+
+  describe('with two sorted options', function() {
+    const price = {
+      "product-type": "hoodie",
+      "options": {
+        "colour": "dark",
+        "size": "xl"
+      }
+    };
+
+    it('should index name under product-type and options', function() {
+      const expected = 'product-type:hoodie,colour:dark,size:xl';
+      const actual = find(price);
+
+      assert.deepEqual(actual, expected);
+    });
+
+  });
+
+  describe('with two unsorted options', function() {
+    const price = {
+      "product-type": "hoodie",
+      "options": {
+        "size": "large",
+        "colour": "white"
+      }
+    };
+
+    it('should index name under product-type and options', function() {
+      const expected = 'product-type:hoodie,colour:white,size:large';
+      const actual = find(price);
 
       assert.deepEqual(actual, expected);
     });
