@@ -1,6 +1,6 @@
 import assert from 'assert'
 
-import { index } from '../price-indexer.js'
+import { index } from '../price.js'
 
 describe('Index price', function() {
   describe('without any options', function() {

@@ -1,6 +1,6 @@
 import { readFileSync } from 'fs'
 
-import { index } from './price-indexer.js'
+import { index } from './price.js'
 
 function cli(args) {
 
