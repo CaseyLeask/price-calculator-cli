@@ -44,3 +44,23 @@ Create a price calculator command-line program. Use any language you like.
 ```
 
   before you commit anything. And do send us a zip file, not just a link to a repository online which would give away your identity.
+
+# Dependencies
+
+## Node.js version of or newer than `v15.3.0` or `v12.22.0`
+This code uses [ECMAScript modules](https://nodejs.org/api/esm.html) (esm for short).
+
+This was stabilised as of `v15.3.0` and `v12.22.0` (earlier versions required the flag `--experimental-module` to use these features).
+
+# Installation
+
+```
+npm install
+npm link
+```
+
+# Usage
+
+```
+price-calculator-cli cart.json prices.json
+```
