@@ -1,0 +1,13 @@
+{
+  "name": "price-calculator-cli",
+  "version": "1.0.0",
+  "description": "Calculates the total price of the cart",
+  "type": "module",
+  "main": "index.js",
+  "bin": "bin/price-calculator.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Redbubble Applicant",
+  "license": "ISC"
+}
