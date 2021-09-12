@@ -104,4 +104,55 @@ describe('Index price', function() {
 
     });
   });
+
+  describe('with an existing index', function() {
+    const existingIndex = {
+      'product-type:hoodie,colour:dark,size:xl': 4368,
+      'product-type:hoodie,colour:dark,size:2xl': 4368,
+      'product-type:hoodie,colour:dark,size:3xl': 4368
+    };
+
+    describe('without any options', function() {
+      const price = {
+        "product-type": "leggings",
+        "options": {},
+        "base-price": 5000
+      };
+
+      it('should index name under product-type', function() {
+        const expected = {
+          'product-type:hoodie,colour:dark,size:xl': 4368,
+          'product-type:hoodie,colour:dark,size:2xl': 4368,
+          'product-type:hoodie,colour:dark,size:3xl': 4368,
+          'product-type:leggings': 5000
+        };
+        const actual = index(price, existingIndex);
+
+        assert.deepEqual(actual, expected);
+      });
+    });
+
+    describe('with one option and one value', function() {
+      const price = {
+        "product-type": "sticker",
+        "options": {
+          "size": ["xl"]
+        },
+        "base-price": 1417
+      };
+
+      it('should index name under product-type and options', function() {
+        const expected = {
+          'product-type:hoodie,colour:dark,size:xl': 4368,
+          'product-type:hoodie,colour:dark,size:2xl': 4368,
+          'product-type:hoodie,colour:dark,size:3xl': 4368,
+          'product-type:sticker,size:xl': 1417
+        };
+        const actual = index(price, existingIndex);
+
+        assert.deepEqual(actual, expected);
+      });
+
+    });
+  });
 });
