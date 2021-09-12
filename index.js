@@ -1,5 +1,7 @@
 import { readFileSync } from 'fs'
 
+import { index } from './price-indexer.js'
+
 function cli(args) {
 
   if (args.length != 2) {
@@ -15,10 +17,18 @@ function cli(args) {
   const cart = JSON.parse(readFileSync(args[0]));
   const basePrices = JSON.parse(readFileSync(args[1]));
 
-  console.log(calculateTotal(cart, basePrices));
+  const indexedPrices = [];
+
+  basePrices.forEach(price => {
+    Object.assign(indexedPrices, index(price));
+  });
+
+  console.log(indexedPrices);
+
+  console.log(calculateTotal(cart, indexedPrices));
 }
 
-function calculateTotal(cart, prices) {
+function calculateTotal(cart, index) {
   return 4560;
 }
 

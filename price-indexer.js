@@ -1,4 +1,4 @@
-function index(price, existingIndex) {
+function index(price) {
   const {
     "product-type": productType,
     "options": options,
@@ -11,12 +11,7 @@ function index(price, existingIndex) {
     newTerms = newTerms.flatMap(term => values.map(value => [`${term},${property}:${value}`]));
   }
 
-  const newEntries = Object.fromEntries(newTerms.map(term => [term, basePrice]));
-
-  return {
-    ...existingIndex,
-    ...newEntries
-  };
+  return Object.fromEntries(newTerms.map(term => [term, basePrice]));
 }
 
 export {
