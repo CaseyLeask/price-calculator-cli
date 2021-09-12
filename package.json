@@ -6,8 +6,11 @@
   "main": "index.js",
   "bin": "bin/price-calculator.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "author": "Redbubble Applicant",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "mocha": "^9.1.1"
+  }
 }

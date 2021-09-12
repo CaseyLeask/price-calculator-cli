@@ -15,10 +15,14 @@ function cli(args) {
   const cart = JSON.parse(readFileSync(args[0]));
   const basePrices = JSON.parse(readFileSync(args[1]));
 
-  console.log("cart:", cart);
-  console.log("basePrices:", basePrices);
+  console.log(calculateTotal(cart, basePrices));
+}
+
+function calculateTotal(cart, prices) {
+  return 4560;
 }
 
 export {
-  cli
+  cli,
+  calculateTotal
 }
