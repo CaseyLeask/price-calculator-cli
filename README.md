@@ -8,8 +8,8 @@ Create a price calculator command-line program. Use any language you like.
 * Your program should take two command-line arguments:
   1. a JSON file representing a cart, and
   2. a JSON file representing a list of base prices.
-* The cart schema is available at: [/cart.schema.json](schema/cart.schema.json). Some example carts are available at: [/cart-4560.json](cart-4560.json), [/cart-9363.json](cart-9363.json), [/cart-9500.json](cart-9500.json), and [/cart-11356.json](cart-11356.json).
-* The base price schema is available at: [/base-prices.schema.json](schema/base-prices.schema.json). An example of base prices is available at: [/base-prices.json](base-prices.json).
+* The cart schema is available at: [/cart.schema.json](schema/cart.schema.json). Some example carts are available at: [/cart-4560.json](test/cart-4560.json), [/cart-9363.json](test/cart-9363.json), [/cart-9500.json](test/cart-9500.json), and [/cart-11356.json](test/cart-11356.json).
+* The base price schema is available at: [/base-prices.schema.json](schema/base-prices.schema.json). An example of base prices is available at: [/base-prices.json](test/base-prices.json).
 * You can assume that the options for a product-type are constant.
 * For example, if the first record with the product-type 'hoodie' in the list of base prices only has the options 'colour' and 'size', all records with the product-type 'hoodie' in the list of base prices will have the options 'colour' and 'size' and will have no other options.
 * Your program should output the total price of the cart in cents followed by a newline character.
