@@ -1,6 +1,6 @@
 import { readFileSync } from 'fs'
 
-import { index, find } from './price.js'
+import { index, options, find } from './price.js'
 
 function cli(args) {
 
@@ -22,17 +22,21 @@ function cli(args) {
 
 function calculateTotal(cart, basePrices) {
   const indexedPrices = {};
+  const indexedOptions = {};
 
   basePrices.forEach(price => {
     Object.assign(indexedPrices, index(price));
+    Object.assign(indexedOptions, options(price));
   });
 
-  let total = 0.0;
+  const costs = cart.map(
+    purchase => ({
+      ...purchase,
+      price: indexedPrices[find(purchase, indexedOptions)]
+    })
+  );
 
-  const searchTerms = cart.map(find);
-
-  console.log(indexedPrices);
-  console.log(searchTerms);
+  console.log(costs);
 
   return total;
 }

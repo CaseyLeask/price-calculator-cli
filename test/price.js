@@ -103,69 +103,127 @@ describe('Index price', function() {
 });
 
 describe('Find price', function() {
-  describe('without any options', function() {
-    const price = {
-      "product-type": "leggings",
-      "options": {}
-    };
+  describe('without indexed options', function() {
+    const indexedOptions = { hoodie: [], sticker: [], leggings: [] };
 
-    it('should index name under product-type', function() {
-      const expected = 'product-type:leggings';
-      const actual = find(price);
+    describe('without any options', function() {
+      const price = {
+        "product-type": "leggings",
+        "options": {}
+      };
 
-      assert.deepEqual(actual, expected);
+      it('should index name under product-type', function() {
+        const expected = 'product-type:leggings';
+        const actual = find(price, indexedOptions);
+
+        assert.deepEqual(actual, expected);
+      });
+    });
+
+    describe('with one option and one value', function() {
+      const price = {
+        "product-type": "sticker",
+        "options": {
+          "size": "xl"
+        }
+      };
+
+      it('should index name under product-type', function() {
+        const expected = 'product-type:sticker';
+        const actual = find(price, indexedOptions);
+
+        assert.deepEqual(actual, expected);
+      });
     });
   });
 
-  describe('with one option and one value', function() {
-    const price = {
-      "product-type": "sticker",
-      "options": {
-        "size": "xl"
-      }
-    };
+  describe('with indexed options', function() {
+    const indexedOptions = { hoodie: [ 'colour', 'size' ], sticker: [ 'size' ], leggings: [] }
 
-    it('should index name under product-type and options', function() {
-      const expected = 'product-type:sticker,size:xl';
-      const actual = find(price);
+    describe('without any options', function() {
+      const price = {
+        "product-type": "leggings",
+        "options": {}
+      };
 
-      assert.deepEqual(actual, expected);
-    });
-  });
+      it('should index name under product-type', function() {
+        const expected = 'product-type:leggings';
+        const actual = find(price, indexedOptions);
 
-  describe('with two sorted options', function() {
-    const price = {
-      "product-type": "hoodie",
-      "options": {
-        "colour": "dark",
-        "size": "xl"
-      }
-    };
-
-    it('should index name under product-type and options', function() {
-      const expected = 'product-type:hoodie,colour:dark,size:xl';
-      const actual = find(price);
-
-      assert.deepEqual(actual, expected);
+        assert.deepEqual(actual, expected);
+      });
     });
 
-  });
+    describe('with one option and one value', function() {
+      const price = {
+        "product-type": "sticker",
+        "options": {
+          "size": "xl"
+        }
+      };
 
-  describe('with two unsorted options', function() {
-    const price = {
-      "product-type": "hoodie",
-      "options": {
-        "size": "large",
-        "colour": "white"
-      }
-    };
+      it('should index name under product-type and options', function() {
+        const expected = 'product-type:sticker,size:xl';
+        const actual = find(price, indexedOptions);
 
-    it('should index name under product-type and options', function() {
-      const expected = 'product-type:hoodie,colour:white,size:large';
-      const actual = find(price);
-
-      assert.deepEqual(actual, expected);
+        assert.deepEqual(actual, expected);
+      });
     });
 
+    describe('with two sorted options', function() {
+      const price = {
+        "product-type": "hoodie",
+        "options": {
+          "colour": "dark",
+          "size": "xl"
+        }
+      };
+
+      it('should index name under product-type and options', function() {
+        const expected = 'product-type:hoodie,colour:dark,size:xl';
+        const actual = find(price, indexedOptions);
+
+        assert.deepEqual(actual, expected);
+      });
+
+    });
+
+    describe('with two unsorted options', function() {
+      const price = {
+        "product-type": "hoodie",
+        "options": {
+          "size": "large",
+          "colour": "white"
+        }
+      };
+
+      it('should index name under product-type and options', function() {
+        const expected = 'product-type:hoodie,colour:white,size:large';
+        const actual = find(price, indexedOptions);
+
+        assert.deepEqual(actual, expected);
+      });
+
+    });
+
+    describe('with extra options', function() {
+      const price = {
+        "product-type": "hoodie",
+        "options": {
+          "size": "xl",
+          "colour": "dark",
+          "print-location": "back"
+        },
+        "artist-markup": 30,
+        "quantity": 2
+      };
+
+      it('should index name under product-type and options', function() {
+        const expected = 'product-type:hoodie,colour:dark,size:xl';
+        const actual = find(price, indexedOptions);
+
+        assert.deepEqual(actual, expected);
+      });
+    });
   });
 });

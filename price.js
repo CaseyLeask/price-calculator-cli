@@ -14,15 +14,32 @@ function index(product) {
   return Object.fromEntries(newTerms.map(term => [term, basePrice]));
 }
 
-function find(product) {
+function options(product) {
   const {
     "product-type": productType,
     "options": options
   } = product;
 
+  return {
+    [productType]: Object.keys(options)
+  };
+}
+
+function find(product, indexedOptions) {
+  const {
+    "product-type": productType,
+    "options": options
+  } = product;
+
+  const indexedProductOptions = indexedOptions[productType];
+
+  const filteredSearchOptions = Object.entries(options)
+                                      .filter(([key, _]) => indexedProductOptions.includes(key))
+                                      .sort();
+
   let newTerm = `product-type:${productType}`;
 
-  for (const [property, value] of Object.entries(options).sort()) {
+  for (const [property, value] of filteredSearchOptions) {
     newTerm = `${newTerm},${property}:${value}`;
   }
 
@@ -31,5 +48,6 @@ function find(product) {
 
 export {
   index,
+  options,
   find
 }
