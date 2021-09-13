@@ -30,12 +30,10 @@ function calculateTotal(cart, basePrices) {
   });
 
   const total = cart.map(
-    purchase => ({
+    purchase => calculate({
       ...purchase,
       "base-price": indexedPrices[find(purchase, indexedOptions)]
-    })
-  ).map(calculate)
-   .reduce((total, itemPrice) => total + itemPrice);
+    })).reduce((total, itemPrice) => total + itemPrice);
 
   return total;
 }
