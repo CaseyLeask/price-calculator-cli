@@ -46,8 +46,19 @@ function find(product, indexedOptions) {
   return newTerm;
 }
 
+function calculate(product) {
+  const {
+    'artist-markup': artistMarkup,
+    quantity,
+    'base-price': basePrice
+  } = product;
+
+  return (basePrice + Math.floor(basePrice * artistMarkup / 100.0)) * quantity;
+}
+
 export {
   index,
   options,
-  find
+  find,
+  calculate
 }

@@ -1,6 +1,6 @@
 import assert from 'assert'
 
-import { index, find } from '../price.js'
+import { index, find, calculate } from '../price.js'
 
 describe('Index price', function() {
   describe('without any options', function() {
@@ -224,6 +224,106 @@ describe('Find price', function() {
 
         assert.deepEqual(actual, expected);
       });
+    });
+  });
+});
+
+describe('Calculate price', function() {
+  describe('with cart-4560', function() {
+    const product = {
+      "product-type": "hoodie",
+      "options": {
+        "size": "small",
+        "colour": "white",
+        "print-location": "front"
+      },
+      "artist-markup": 20,
+      "quantity": 1,
+      "base-price": 3800
+    };
+
+    it('should return price of 4560', function() {
+      assert.equal(calculate(product), 4560);
+    });
+  });
+
+  describe('with cart-9363', function() {
+    const products = [
+      {
+        "product-type": "hoodie",
+        "options": {
+          "size": "small",
+          "colour": "dark",
+          "print-location": "front"
+        },
+        "artist-markup": 20,
+        "quantity": 2,
+        "base-price": 3800
+      },
+      {
+        "product-type": "sticker",
+        "options": {
+          "size": "small"
+        },
+        "artist-markup": 10,
+        "quantity": 1,
+        "base-price": 221
+      }
+    ];
+
+    it('should return price of 9363', function() {
+      const actual = products.map(calculate).reduce((a, b) => a + b);
+      assert.equal(actual, 9363);
+    });
+  });
+
+  describe('with cart-9500', function() {
+    const products = [
+      {
+        "product-type": "hoodie",
+        "options": {
+          "size": "small",
+          "colour": "white",
+          "print-location": "front"
+        },
+        "artist-markup": 20,
+        "quantity": 1,
+        "base-price": 3800
+      },
+      {
+        "product-type": "hoodie",
+        "options": {
+          "size": "small",
+          "colour": "dark",
+          "print-location": "front"
+        },
+        "artist-markup": 30,
+        "quantity": 1,
+        "base-price": 3800
+      }
+    ];
+
+    it('should return price of 9500', function() {
+      const actual = products.map(calculate).reduce((a, b) => a + b);
+      assert.equal(actual, 9500);
+    });
+  });
+
+  describe('with cart-11356', function() {
+    const product = {
+      "product-type": "hoodie",
+      "options": {
+        "size": "xl",
+        "colour": "dark",
+        "print-location": "back"
+      },
+      "artist-markup": 30,
+      "quantity": 2,
+      "base-price": 4368
+    };
+
+    it('should return price of 11356', function() {
+      assert.equal(calculate(product), 11356);
     });
   });
 });

@@ -1,6 +1,6 @@
 import { readFileSync } from 'fs'
 
-import { index, options, find } from './price.js'
+import { index, options, find, calculate } from './price.js'
 
 function cli(args) {
 
@@ -29,14 +29,13 @@ function calculateTotal(cart, basePrices) {
     Object.assign(indexedOptions, options(price));
   });
 
-  const costs = cart.map(
+  const total = cart.map(
     purchase => ({
       ...purchase,
-      price: indexedPrices[find(purchase, indexedOptions)]
+      "base-price": indexedPrices[find(purchase, indexedOptions)]
     })
-  );
-
-  console.log(costs);
+  ).map(calculate)
+   .reduce((total, itemPrice) => total + itemPrice);
 
   return total;
 }
